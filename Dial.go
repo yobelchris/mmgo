@@ -28,6 +28,10 @@ func Dial(url string) (Session, error) {
 	return sessionIn, nil
 }
 
+func IsDup(err error) bool {
+	return mgo.IsDup(err)
+}
+
 func (ms MockedSession) DB(name string) Database {
 	return &MockedDatabase{ms.Session.DB(name)}
 }
