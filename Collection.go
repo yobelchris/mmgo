@@ -11,6 +11,7 @@ type Collection interface {
 	Pipe(pipeline interface{}) Pipe
 	Insert(docs ...interface{}) error
 	Update(selector interface{}, update interface{}) error
+	Remove(selector interface{}) error
 	DropCollection() error
 }
 
@@ -32,4 +33,8 @@ func (mc MockedCollection) DropCollection() error {
 
 func (mc MockedCollection) Pipe(pipeline interface{}) Pipe {
 	return &MockedPipe{mc.Collection.Pipe(pipeline)}
+}
+
+func (mc *MockedCollection) Remove(selector interface{}) error {
+	return mc.Collection.Remove(selector)
 }
