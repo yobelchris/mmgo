@@ -12,7 +12,7 @@ type Session interface {
 	Copy() Session
 }
 
-func Dial(url string) (Session, error) {
+func Dial(url string) (*Session, error) {
 	ses, err := mgo.Dial(url)
 
 	if err != nil {
@@ -25,21 +25,21 @@ func Dial(url string) (Session, error) {
 
 	sessionIn = &session
 
-	return sessionIn, nil
+	return &sessionIn, nil
 }
 
 func IsDup(err error) bool {
 	return mgo.IsDup(err)
 }
 
-func (ms MockedSession) DB(name string) Database {
+func (ms *MockedSession) DB(name string) Database {
 	return &MockedDatabase{ms.Session.DB(name)}
 }
 
-func (ms MockedSession) Close() {
+func (ms *MockedSession) Close() {
 	ms.Session.Close()
 }
 
-func (ms MockedSession) Copy() Session {
+func (ms *MockedSession) Copy() Session {
 	return &MockedSession{ms.Session.Copy()}
 }
