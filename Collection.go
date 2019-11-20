@@ -16,30 +16,30 @@ type Collection interface {
 	DropCollection() error
 }
 
-func (mc *MockedCollection) Find(query interface{}) Query {
+func (mc MockedCollection) Find(query interface{}) Query {
 	return &MockedQuery{mc.Collection.Find(query)}
 }
 
-func (mc *MockedCollection) Insert(docs ...interface{}) error {
+func (mc MockedCollection) Insert(docs ...interface{}) error {
 	return mc.Collection.Insert(docs...)
 }
 
-func (mc *MockedCollection) Update(selector interface{}, update interface{}) error {
+func (mc MockedCollection) Update(selector interface{}, update interface{}) error {
 	return mc.Collection.Update(selector, update)
 }
 
-func (mc *MockedCollection) DropCollection() error {
+func (mc MockedCollection) DropCollection() error {
 	return mc.Collection.DropCollection()
 }
 
-func (mc *MockedCollection) Pipe(pipeline interface{}) Pipe {
+func (mc MockedCollection) Pipe(pipeline interface{}) Pipe {
 	return &MockedPipe{mc.Collection.Pipe(pipeline)}
 }
 
-func (mc *MockedCollection) Remove(selector interface{}) error {
+func (mc MockedCollection) Remove(selector interface{}) error {
 	return mc.Collection.Remove(selector)
 }
 
-func (mc *MockedCollection) UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
+func (mc MockedCollection) UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
 	return mc.Collection.UpdateAll(selector, update)
 }
