@@ -8,6 +8,7 @@ type MockedCollection struct {
 
 type Collection interface {
 	Find(query interface{}) Query
+	FindId(id interface{}) Query
 	Pipe(pipeline interface{}) Pipe
 	Insert(docs ...interface{}) error
 	Update(selector interface{}, update interface{}) error
@@ -42,4 +43,8 @@ func (mc MockedCollection) Remove(selector interface{}) error {
 
 func (mc MockedCollection) UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
 	return mc.Collection.UpdateAll(selector, update)
+}
+
+func (mc MockedCollection) FindId(id interface{}) Query {
+	return &MockedQuery{mc.Collection.FindId(id)}
 }
