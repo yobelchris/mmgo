@@ -21,5 +21,5 @@ func (mq MockedQuery) Count() (n int, err error) {
 }
 
 func (mq MockedQuery) One(result interface{}) (err error) {
-	return mq.One(result)
+	return mq.Query.One(result)
 }
