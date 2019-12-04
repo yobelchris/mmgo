@@ -13,6 +13,7 @@ type Collection interface {
 	Insert(docs ...interface{}) error
 	Update(selector interface{}, update interface{}) error
 	UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error)
+	Upsert(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error)
 	Remove(selector interface{}) error
 	DropCollection() error
 }
@@ -47,4 +48,8 @@ func (mc MockedCollection) UpdateAll(selector interface{}, update interface{}) (
 
 func (mc MockedCollection) FindId(id interface{}) Query {
 	return &MockedQuery{mc.Collection.FindId(id)}
+}
+
+func (mc MockedCollection) Upsert(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
+	return mc.Collection.Upsert(selector, update)
 }
