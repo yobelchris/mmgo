@@ -15,6 +15,7 @@ type Collection interface {
 	UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error)
 	Upsert(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error)
 	Remove(selector interface{}) error
+	RemoveAll(selector interface{}) (info *mgo.ChangeInfo, err error)
 	DropCollection() error
 }
 
@@ -40,6 +41,10 @@ func (mc MockedCollection) Pipe(pipeline interface{}) Pipe {
 
 func (mc MockedCollection) Remove(selector interface{}) error {
 	return mc.Collection.Remove(selector)
+}
+
+func (mc MockedCollection) RemoveAll(selector interface{}) (info *mgo.ChangeInfo, err error) {
+	return mc.Collection.RemoveAll(selector)
 }
 
 func (mc MockedCollection) UpdateAll(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
