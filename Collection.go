@@ -16,6 +16,7 @@ type Collection interface {
 	Upsert(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error)
 	Remove(selector interface{}) error
 	RemoveAll(selector interface{}) (info *mgo.ChangeInfo, err error)
+	Bulk() Bulk
 	DropCollection() error
 }
 
@@ -53,6 +54,10 @@ func (mc MockedCollection) UpdateAll(selector interface{}, update interface{}) (
 
 func (mc MockedCollection) FindId(id interface{}) Query {
 	return &MockedQuery{mc.Collection.FindId(id)}
+}
+
+func (mc MockedCollection) Bulk() Bulk {
+	return &MockedBulk{mc.Collection.Bulk()}
 }
 
 func (mc MockedCollection) Upsert(selector interface{}, update interface{}) (info *mgo.ChangeInfo, err error) {
